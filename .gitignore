@@ -1,0 +1,51 @@
+# Ignore compiled files.
+__pycache__/
+*.py[cod]
+
+# Ignore files created by IDEs.
+/.vscode/
+/.idea/
+.ipynb_*/
+*.ipynb
+.DS_Store
+*.sw[pon]
+
+# Ignore result files within default working directory.
+/work_dirs/
+
+# Ignore data files.
+data/
+*.npy
+*.tar
+*.zip
+*.mdb
+
+# Ignore network files.
+checkpoints/
+*.pth
+*.pt
+*.pkl
+*.h5
+*.dat
+
+# Ignore media files.
+results/
+*.jpg
+*.png
+*.jpeg
+*.gif
+*.avi
+*.mp4
+
+# Ignore log files.
+resources/
+events/
+profile/
+*.txt
+*.json
+*.log
+*.html
+events.*
+
+# Files that should not be ignored.
+!/requirements/*

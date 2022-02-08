@@ -1,0 +1,18 @@
+[submodule "converters/pggan_official"]
+	path = converters/pggan_official
+	url = https://github.com/tkarras/progressive_growing_of_gans.git
+[submodule "converters/stylegan_official"]
+	path = converters/stylegan_official
+	url = https://github.com/NVlabs/stylegan.git
+[submodule "converters/stylegan2_official"]
+	path = converters/stylegan2_official
+	url = https://github.com/NVlabs/stylegan2.git
+[submodule "converters/stylegan2ada_tf_official"]
+	path = converters/stylegan2ada_tf_official
+	url = https://github.com/NVlabs/stylegan2-ada.git
+[submodule "converters/stylegan2ada_pth_official"]
+	path = converters/stylegan2ada_pth_official
+	url = https://github.com/NVlabs/stylegan2-ada-pytorch.git
+[submodule "converters/stylegan3_official"]
+	path = converters/stylegan3_official
+	url = https://github.com/NVlabs/stylegan3.git
