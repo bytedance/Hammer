@@ -124,7 +124,7 @@ We open source this library to the community to facilitate the research. If you 
 
 ```bibtex
 @misc{hammer2022,
-  title =        {Hammer: An Efficient Toolkit for Training Deep Models.},
+  title =        {Hammer: An Efficient Toolkit for Training Deep Models},
   author =       {Shen, Yujun and Zhang, Zhiyi and Yang, Dingdong and Xu, Yinghao and Yang, Ceyuan and Zhu, Jiapeng},
   howpublished = {\url{https://github.com/bytedance/Hammer}},
   year =         {2022}

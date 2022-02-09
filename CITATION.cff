@@ -13,7 +13,7 @@ authors:
   given-names: "Ceyuan"
 - family-names: "Zhu"
   given-names: "Jiapeng"
-title: "Hammer: An Efficient Toolkit for Training Deep Models."
+title: "Hammer: An Efficient Toolkit for Training Deep Models"
 version: 1.0.0
 date-released: 2022-02-08
 url: "https://github.com/bytedance/Hammer"
