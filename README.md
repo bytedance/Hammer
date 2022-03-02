@@ -111,7 +111,7 @@ The main contributors are listed as follows.
 
 | Member                                       | Contribution |
 | :--                                          | :-- |
-|[Yujun Shen](https://shenyujun.github.io/)    | Refactor and optimize the entire codebase and reproduce start-of-the-art approaches.
+|[Yujun Shen](https://shenyujun.github.io/)    | Refactor and optimize the entire codebase and reproduce state-of-the-art approaches.
 |[Zhiyi Zhang](https://github.com/BrandoZhang) | Contribute to a number of sub-modules and functions, especially dataset related.
 |[Dingdong Yang](https://github.com/santisy)   | Contribute to DALI data loading acceleration.
 |[Yinghao Xu](https://justimyhxu.github.io/)   | Originally contribute to runner and loss functions in [GenForce](https://github.com/genforce/genforce).
