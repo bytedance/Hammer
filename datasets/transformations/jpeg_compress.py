@@ -11,7 +11,6 @@ except ImportError:
     fn = None
 
 from utils.formatting_utils import format_range
-from utils.formatting_utils import format_image
 from .base_transformation import BaseTransformation
 
 __all__ = ['JpegCompress']
@@ -51,8 +50,9 @@ class JpegCompress(BaseTransformation):
         outputs = []
         for image in data:
             _, encoded_image = cv2.imencode('.jpg', image, encode_param)
-            decoded_image = format_image(
-                cv2.imdecode(encoded_image, cv2.IMREAD_UNCHANGED))
+            decoded_image = cv2.imdecode(encoded_image, cv2.IMREAD_UNCHANGED)
+            if decoded_image.ndim == 2:
+                decoded_image = decoded_image[:, :, np.newaxis]
             outputs.append(decoded_image)
         return outputs
 

@@ -109,10 +109,11 @@ def parse_index(arg, min_val=None, max_val=None):
 def parse_json(arg):
     """Parses a string-like argument following JSON format.
 
-    `None` arguments will be kept.
+    - `None` arguments will be kept.
+    - Non-string arguments will be kept.
     """
-    if arg is None:
-        return None
+    if not isinstance(arg, str):
+        return arg
     try:
         return json.loads(arg)
     except json.decoder.JSONDecodeError:

@@ -20,7 +20,7 @@ class RunningLogger(BaseController):
     This controller is able to save the log message in different formats:
 
     (1) Text format, which will be printed on screen and saved to the log file.
-    (2) JSON format, which will be saved to `{runner.work_dir}/log.json`.
+    (2) JSON Lines format.
     (3) TensorBoard format.
 
     User can use `tb_groups` attribute to group items in TensorBoard.
@@ -110,13 +110,17 @@ class RunningLogger(BaseController):
         # Reset peak GPU memory stats.
         torch.cuda.reset_peak_memory_stats()
 
-        # Save per-rank process info in JSON format.
+        # Save per-rank process info in JSON Lines format.
         proc_log_path = os.path.join(runner.resource_dir,
-                                     f'Rank-{runner.rank:02d}_proc_info.json')
+                                     f'rank{runner.rank:02d}_proc_info.jsonl')
         with open(proc_log_path, 'a+') as proc_log:
-            json.dump({iter_msg: {'Memory (GB)': memory,
-                                  'GPU Memory (GB)': gpu_memory}},
-                      proc_log)
+            proc_data = {
+                iter_msg: {
+                    'Memory (GB)': memory,
+                    'GPU Memory (GB)': gpu_memory
+                }
+            }
+            json.dump(proc_data, proc_log)
             proc_log.write('\n')
 
         # Log main info via chief runner.
@@ -137,12 +141,16 @@ class RunningLogger(BaseController):
                 f' Total memory: {total_memory:.2f} G,'
                 f' Disk free: {disk_free:.1f} G]')
 
-        # Save overall resource info in JSON format.
-        proc_log_path = os.path.join(runner.resource_dir, 'All_proc_info.json')
+        # Save overall resource info in JSON Lines format.
+        proc_log_path = os.path.join(runner.resource_dir, 'all_proc_info.jsonl')
         with open(proc_log_path, 'a+') as proc_log:
-            json.dump({iter_msg: {'Total memory (GB)': total_memory,
-                                  'Disk free (GB)': disk_free}},
-                      proc_log)
+            proc_data = {
+                iter_msg: {
+                    'Total memory (GB)': total_memory,
+                    'Disk free (GB)': disk_free
+                }
+            }
+            json.dump(proc_data, proc_log)
             proc_log.write('\n')
 
         # Estimate ETA.
@@ -150,7 +158,7 @@ class RunningLogger(BaseController):
         msg += f' (ETA: {format_time(eta)})'
         runner.logger.info(msg)
 
-        # Save in JSON format.
+        # Save in JSON Lines format.
         with open(runner.log_data_path, 'a+') as f:
             json.dump(log_data, f)
             f.write('\n')

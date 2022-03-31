@@ -14,15 +14,15 @@ like
                 "type": "object",
                 "properties": {
                     "arg_1": {
+                        "is_recommended":  # true / false
                         "type":  # int / float / bool / str / json-string /
                                  # index-string
-                        "is_recommended":  # true / false
                         "default":
                         "description":
                     },
                     "arg_2": {
-                        "type":
                         "is_recommended":
+                        "type":
                         "default":
                         "description":
                     }
@@ -32,14 +32,14 @@ like
                 "type": "object",
                 "properties": {
                     "arg_3": {
-                        "type":
                         "is_recommended":
+                        "type":
                         "default":
                         "description":
                     },
                     "arg_4": {
-                        "type":
                         "is_recommended":
+                        "type":
                         "default":
                         "description":
                     }
@@ -54,8 +54,8 @@ like
                 "type": "object",
                 "properties": {
                     "arg_1": {
-                        "type":
                         "is_recommended":
+                        "type":
                         "default":
                         "description":
                     }
@@ -71,15 +71,6 @@ import json
 
 from configs import CONFIG_POOL
 
-PARAM_TYPE_TO_VALUE_TYPE = {
-    'IntegerParamType': 'int',
-    'FloatParamType': 'float',
-    'BooleanParamType': 'bool',
-    'StringParamType': 'str',
-    'IndexParamType': 'index-string',
-    'JsonParamType': 'json-string'
-}
-
 
 def parse_args_from_config(config):
     """Parses available arguments from a configuration class.
@@ -89,21 +80,21 @@ def parse_args_from_config(config):
             defined in `configs/`. This class is supposed to derive from
             `BaseConfig` defined in `configs/base_config.py`.
     """
-    def _dummy_func():
-        """A dummy function used to parse decorator."""
-
-    args = dict()
-    func = config.add_options_to_command(config.get_options())(_dummy_func)
     recommended_opts = config.get_recommended_options()
-    for opt in reversed(func.__click_params__):
-        if opt.group.title not in args:
-            args[opt.group.title] = dict(type='object', properties=dict())
-        args[opt.group.title]['properties'][opt.name] = dict(
-            type=PARAM_TYPE_TO_VALUE_TYPE[opt.type.__class__.__name__],
-            default=opt.default,
-            is_recommended=opt.name in recommended_opts,
-            description=opt.help
+    args = dict()
+    for opt_group, opts in config.get_options().items():
+        args[opt_group] = dict(
+            type='object',
+            properties=dict()
         )
+        for opt in opts:
+            arg = config.inspect_option(opt)
+            args[opt_group]['properties'][arg.name] = dict(
+                is_recommended=arg.name in recommended_opts,
+                type=arg.type,
+                default=arg.default,
+                description=arg.help
+            )
     return args
 
 

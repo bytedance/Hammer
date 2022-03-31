@@ -68,12 +68,12 @@ Please find more training demos under `./scripts/training_demos/`.
 
 ## Inspect Training Results
 
-Besides using TensorBoard to track the training process, the raw results (e.g., training losses and running time) are saved in JSON format. They can be easily inspected with the following script
+Besides using TensorBoard to track the training process, the raw results (e.g., training losses and running time) are saved in [JSON Lines](https://jsonlines.org/) format. They can be easily inspected with the following script
 
 ```python
 import json
 
-file_name = '<PATH_TO_WORK_DIR>/log.json'
+file_name = '<PATH_TO_WORK_DIR>/log.jsonl'
 
 data_entries = []
 with open(file_name, 'r') as f:

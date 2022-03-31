@@ -101,4 +101,5 @@ ${PYTHON} -m torch.distributed.launch \
         --test_kid ${TEST_KID} \
         --test_gan_pr ${TEST_GAN_PR} \
         --test_snapshot ${TEST_SNAPSHOT} \
-        --test_equivariance ${TEST_EQUIVARIANCE}
+        --test_equivariance ${TEST_EQUIVARIANCE} \
+        ${@:5}

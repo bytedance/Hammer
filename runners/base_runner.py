@@ -507,25 +507,30 @@ class BaseRunner(object):
             for param_name, param in model.named_parameters():
                 param_shapes[param_name] = f'{list(param.shape)}'
                 param_numels[param_name] = param.numel()
-            param_name_max_len = max(map(len, param_shapes.keys()))
-            param_name_max_len = max(param_name_max_len, len(name_header))
-            param_shape_max_len = max(map(len, param_shapes.values()))
-            param_shape_max_len = max(param_shape_max_len, len(shape_header))
-            param_numel_max_len = int(np.ceil(
-                np.log10(max(param_numels.values()))
-            ))
-            param_numel_max_len = max(param_numel_max_len, len(numel_header))
-            model_info += f'{name_header:<{param_name_max_len + 2}}'
-            model_info += f'{shape_header:<{param_shape_max_len + 2}}'
-            model_info += f'{numel_header:>{param_numel_max_len + 2}}\n'
-            model_info += f'{name_separator:<{param_name_max_len + 2}}'
-            model_info += f'{shape_separator:<{param_shape_max_len + 2}}'
-            model_info += f'{numel_separator:>{param_numel_max_len + 2}}\n'
-            for param_name, param_shape in param_shapes.items():
-                param_numel = param_numels[param_name]
-                model_info += f'{param_name:<{param_name_max_len + 2}}'
-                model_info += f'{param_shape:<{param_shape_max_len + 2}}'
-                model_info += f'{param_numel:{param_numel_max_len + 2}d}\n'
+            if len(param_shapes) == 0:  # no parameters
+                model_info += 'The model contains no parameter.\n'
+            else:
+                param_name_max_len = max(map(len, param_shapes.keys()))
+                param_name_max_len = max(param_name_max_len, len(name_header))
+                param_shape_max_len = max(map(len, param_shapes.values()))
+                param_shape_max_len = max(param_shape_max_len,
+                                          len(shape_header))
+                param_numel_max_len = int(np.ceil(
+                    np.log10(max(param_numels.values()))
+                ))
+                param_numel_max_len = max(param_numel_max_len,
+                                          len(numel_header))
+                model_info += f'{name_header:<{param_name_max_len + 2}}'
+                model_info += f'{shape_header:<{param_shape_max_len + 2}}'
+                model_info += f'{numel_header:>{param_numel_max_len + 2}}\n'
+                model_info += f'{name_separator:<{param_name_max_len + 2}}'
+                model_info += f'{shape_separator:<{param_shape_max_len + 2}}'
+                model_info += f'{numel_separator:>{param_numel_max_len + 2}}\n'
+                for param_name, param_shape in param_shapes.items():
+                    param_numel = param_numels[param_name]
+                    model_info += f'{param_name:<{param_name_max_len + 2}}'
+                    model_info += f'{param_shape:<{param_shape_max_len + 2}}'
+                    model_info += f'{param_numel:{param_numel_max_len + 2}d}\n'
             model_info += ('-' * 50 + '\n')
 
             model_info += 'Buffers:\n\n'
@@ -534,25 +539,31 @@ class BaseRunner(object):
             for buffer_name, buffer in model.named_buffers():
                 buffer_shapes[buffer_name] = f'{list(buffer.shape)}'
                 buffer_numels[buffer_name] = buffer.numel()
-            buffer_name_max_len = max(map(len, buffer_shapes.keys()))
-            buffer_name_max_len = max(buffer_name_max_len, len(name_header))
-            buffer_shape_max_len = max(map(len, buffer_shapes.values()))
-            buffer_shape_max_len = max(buffer_shape_max_len, len(shape_header))
-            buffer_numel_max_len = int(np.ceil(
-                np.log10(max(buffer_numels.values()))
-            ))
-            buffer_numel_max_len = max(buffer_numel_max_len, len(numel_header))
-            model_info += f'{name_header:<{buffer_name_max_len + 2}}'
-            model_info += f'{shape_header:<{buffer_shape_max_len + 2}}'
-            model_info += f'{numel_header:>{buffer_numel_max_len + 2}}\n'
-            model_info += f'{name_separator:<{buffer_name_max_len + 2}}'
-            model_info += f'{shape_separator:<{buffer_shape_max_len + 2}}'
-            model_info += f'{numel_separator:>{buffer_numel_max_len + 2}}\n'
-            for buffer_name, buffer_shape in buffer_shapes.items():
-                buffer_numel = buffer_numels[buffer_name]
-                model_info += f'{buffer_name:<{buffer_name_max_len + 2}}'
-                model_info += f'{buffer_shape:<{buffer_shape_max_len + 2}}'
-                model_info += f'{buffer_numel:{buffer_numel_max_len + 2}d}\n'
+            if len(buffer_shapes) == 0:  # no buffers
+                model_info += 'The model contains no buffer.\n'
+            else:
+                buffer_name_max_len = max(map(len, buffer_shapes.keys()))
+                buffer_name_max_len = max(buffer_name_max_len, len(name_header))
+                buffer_shape_max_len = max(map(len, buffer_shapes.values()))
+                buffer_shape_max_len = max(buffer_shape_max_len,
+                                           len(shape_header))
+                buffer_numel_max_len = int(np.ceil(
+                    np.log10(max(buffer_numels.values()))
+                ))
+                buffer_numel_max_len = max(buffer_numel_max_len,
+                                           len(numel_header))
+                model_info += f'{name_header:<{buffer_name_max_len + 2}}'
+                model_info += f'{shape_header:<{buffer_shape_max_len + 2}}'
+                model_info += f'{numel_header:>{buffer_numel_max_len + 2}}\n'
+                model_info += f'{name_separator:<{buffer_name_max_len + 2}}'
+                model_info += f'{shape_separator:<{buffer_shape_max_len + 2}}'
+                model_info += f'{numel_separator:>{buffer_numel_max_len + 2}}\n'
+                for buffer_name, buffer_shape in buffer_shapes.items():
+                    buffer_numel = buffer_numels[buffer_name]
+                    model_info += f'{buffer_name:<{buffer_name_max_len + 2}}'
+                    model_info += f'{buffer_shape:<{buffer_shape_max_len + 2}}'
+                    model_info += f'{buffer_numel:{buffer_numel_max_len + 2}d}'
+                    model_info += '\n'
             model_info += ('-' * 50 + '\n')
 
             model_info += 'Size (using `Float32` for size computation):\n\n'

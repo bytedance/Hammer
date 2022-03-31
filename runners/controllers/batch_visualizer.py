@@ -44,6 +44,14 @@ class BatchVisualizer(BaseController):
     - max_val: Maximum pixel value of the images to visualize. This field is
         used to post-process the images back to pixel range [0, 255].
         (default: 1.0)
+    - image_channels: image channel number of a grid. It is the maximum image 
+        channel number of images you want to visualize in the same grid. For
+        example, if you want to visualize RGB and RGBA images in the same grid,
+        this number should be 4.
+        (default: 3)
+    - use_black_background: Whether to use black background. It will initialize
+        the grid to all zero image if this flag is set True, otherwise 255s.
+        (default: True)
     """
 
     def __init__(self, config):
@@ -65,7 +73,9 @@ class BatchVisualizer(BaseController):
         self.min_val = config.get('min_val', -1.0)
         self.max_val = config.get('max_val', 1.0)
 
-        self._visualizer = GridVisualizer()
+        self._visualizer = GridVisualizer(
+            image_channels=config.get('image_channels', 3),
+            use_black_background=config.get('use_black_background', False))
 
     def setup(self, runner):
         runner.logger.info('Visualization settings:', indent_level=2)

@@ -151,9 +151,9 @@ class GridVisualizer(object):
 
         NOTE: The input image is assumed to be with `RGB` channel order.
         """
+        channels = 1 if image.ndim == 2 else image.shape[2]
         if self.grid is None:
             height, width = image.shape[0:2]
-            channels = 1 if image.ndim == 2 else image.shape[2]
             height = self.image_height or height
             width = self.image_width or width
             channels = self.image_channels or channels
@@ -164,7 +164,9 @@ class GridVisualizer(object):
             image = resize_image(image, (self.image_width, self.image_height))
         y = self.border_top + i * (self.image_height + self.row_spacing)
         x = self.border_left + j * (self.image_width + self.col_spacing)
-        self.grid[y:y + self.image_height, x:x + self.image_width] = image
+        self.grid[y:y + self.image_height,
+                  x:x + self.image_width,
+                  :channels] = image
 
     def visualize_collection(self,
                              images,

@@ -277,12 +277,12 @@ class StyleGAN3Generator(nn.Module):
         For layers in range [0, truncation_layers), the truncated w-code is
         computed as
 
-        w_new = w_avg + (w - w_avg) * truncation_psi
+        w_new = w_avg + (w - w_avg) * trunc_psi
 
         To disable truncation, please set
 
-        (1) truncation_psi = 1.0 (None) OR
-        (2) truncation_layers = 0 (None)
+        (1) trunc_psi = 1.0 (None) OR
+        (2) trunc_layers = 0 (None)
         """
 
         mapping_results = self.mapping(z, label, impl=impl)

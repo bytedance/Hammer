@@ -216,8 +216,9 @@ def compute_gan_precision_recall(fake_features,
                                  top_k=3):
     """Computes precision and recall for GAN evaluation.
 
-    KID metric is introduced in https://arxiv.org/pdf/1904.06991.pdf, with
-    official code
+    GAN precision and recall are introduced in
+
+    https://arxiv.org/pdf/1904.06991.pdf, with official code
 
     https://github.com/kynkaat/improved-precision-and-recall-metric.
 

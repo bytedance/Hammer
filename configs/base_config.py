@@ -17,7 +17,7 @@ directory. Basically, the working directory is organized as follows:
     ├── ${PROFILE_DIR}/
     ├── ${RESOURCE_DIR}/
     ├── ${CONFIG_FILENAME}  # in JSON format
-    ├── ${LOG_DATA_FILENAME}  # in JSON format
+    ├── ${LOG_DATA_FILENAME}  # in JSON Lines format
     └── ${LOG_FILENAME}  # in plain text
 """
 
@@ -35,6 +35,15 @@ from utils.parsing_utils import JsonParamType
 from utils.parsing_utils import IndexParamType
 
 __all__ = ['BaseConfig']
+
+_PARAM_TYPE_TO_VALUE_TYPE = {
+    'IntegerParamType': 'int',
+    'FloatParamType': 'float',
+    'BooleanParamType': 'bool',
+    'StringParamType': 'str',
+    'IndexParamType': 'index-string',
+    'JsonParamType': 'json-string'
+}
 
 
 class BaseConfig(object):
@@ -75,27 +84,37 @@ class BaseConfig(object):
     The base class provides the following functions to parse configuration from
     command line:
 
+    - Functions requiring implementation in derived class:
+
     (1) get_options(): Declare all options required by a particular task. The
         base class has already pre-declared some options that will be shared
         across tasks (e.g., data-related options). To declare more options,
         the derived class should override this function by first calling
-        `options = super().get_options()`. (requires implementation)
-    (2) add_options_to_command(): Add all options for a particular task to the
-        corresponding command. This function is specially designed to show
-        user-friendly help message. (no need to care about by derived class)
-    (3) get_command(): Return a `click.command` to get interactive with users.
-        This function makes it possible to pass options through command line.
-        (no need to care about by derived class)
-    (4) parse_options(): Parse the options obtained from the command line (as
+        `options = super().get_options()`.
+    (2) parse_options(): Parse the options obtained from the command line (as
         well as those options with default values) to `self.config`. This is the
         core function of the configuration class, which converts `options` to
-        `configurations`. (requires implementation)
-    (5) update_config(): Update the configuration parsed from options with
+        `configurations`.
+    (3) get_recommended_options(): Get a list of options that are recommended
+        for a particular task. The base class has already pre-declared some
+        recommended options that will be shared across tasks. To recommend more
+        options, the derived class should override this function by first
+        calling `recommended_opts = super().get_recommended_options()`.
+
+    - Helper functions shared by all derived classes:
+
+    (1) inspect_option(): Inspect argument from a particular `click.option`,
+        including the argument name, argument type, default value, and help
+        message.
+    (2) add_options_to_command(): Add all options for a particular task to the
+        corresponding command. This function is specially designed to show
+        user-friendly help message.
+    (3) get_command(): Return a `click.command` to get interactive with users.
+        This function makes it possible to pass options through command line.
+    (4) update_config(): Update the configuration parsed from options with
         key-value pairs. This function makes option parsing more flexible.
-        (no need to care about by derived class)
-    (6) get_config(): The main function to get the parsed configuration, which
-        wraps functions `parse_options()` and `tune_config()`. (no need to care
-        about by derived class)
+    (5) get_config(): The main function to get the parsed configuration, which
+        wraps functions `parse_options()` and `update_config()`.
 
     In summary, to define a configuration class for a new task, the derived
     class only need to implement `get_options()` to declare changeable settings
@@ -113,6 +132,30 @@ class BaseConfig(object):
     index_type = IndexParamType()
     json_type = JsonParamType()
     command_option = cloup.option
+
+    @staticmethod
+    def inspect_option(option):
+        """Inspects argument from a particular option.
+
+        Args:
+            option: The input `click.option` to inspect.
+
+        Returns:
+            An `EasyDict` indicating the `name`, `type`, `default` (default
+                value), and `help` (help message) of the argument.
+        """
+
+        @option
+        def func():
+            """A dummy function used to parse decorator."""
+
+        arg = func.__click_params__[0]
+        return EasyDict(
+            name=arg.name,
+            type=_PARAM_TYPE_TO_VALUE_TYPE[arg.type.__class__.__name__],
+            default=arg.default,
+            help=arg.help
+        )
 
     @staticmethod
     def add_options_to_command(options):
@@ -190,7 +233,7 @@ class BaseConfig(object):
                 '--config_path', type=str, default='config.json',
                 help='To which to save full configuration.'),
             cls.command_option(
-                '--log_data_path', type=str, default='log.json',
+                '--log_data_path', type=str, default='log.jsonl',
                 help='To which to save raw log data, e.g. losses.'),
             cls.command_option(
                 '--log_path', type=str, default='log.txt',
