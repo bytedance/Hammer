@@ -7,6 +7,9 @@ from .fid import FID50K
 from .fid import FID50KFull
 from .inception_score import ISMetric as IS
 from .inception_score import IS50K
+from .intra_class_fid import ICFIDMetric as ICFID
+from .intra_class_fid import ICFID50K
+from .intra_class_fid import ICFID50KFull
 from .kid import KIDMetric as KID
 from .kid import KID50K
 from .kid import KID50KFull
@@ -30,6 +33,9 @@ _METRICS = {
     'FID50KFull': FID50KFull,
     'IS': IS,
     'IS50K': IS50K,
+    'ICFID': ICFID,
+    'ICFID50K': ICFID50K,
+    'ICFID50KFull': ICFID50KFull,
     'KID': KID,
     'KID50K': KID50K,
     'KID50KFull': KID50KFull,
