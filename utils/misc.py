@@ -21,19 +21,19 @@ class Infix(object):
     When using it, make sure to put the operator between `<<` and `>>`.
     `<< INFIX_OP_NAME >>` should be considered as a whole operator.
 
-    Examples:
+    Examples::
 
-    # Use `Infix` to create infix operators directly.
-    add = Infix(lambda a, b: a + b)
-    1 << add >> 2  # gives 3
-    1 << add >> 2 << add >> 3  # gives 6
+        # Use `Infix` to create infix operators directly.
+        add = Infix(lambda a, b: a + b)
+        1 << add >> 2  # gives 3
+        1 << add >> 2 << add >> 3  # gives 6
 
-    # Use `Infix` as a decorator.
-    @Infix
-    def mul(a, b):
-        return a * b
-    2 << mul >> 4  # gives 8
-    2 << mul >> 3 << mul >> 7  # gives 42
+        # Use `Infix` as a decorator.
+        @Infix
+        def mul(a, b):
+            return a * b
+        2 << mul >> 4  # gives 8
+        2 << mul >> 3 << mul >> 7  # gives 42
     """
 
     def __init__(self, function):

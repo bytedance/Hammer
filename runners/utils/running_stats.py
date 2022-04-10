@@ -196,17 +196,17 @@ class RunningStats(object):
 
     Basically, this class contains a dictionary of SingleStats.
 
-    Example:
+    Example::
 
-    running_stats = RunningStats()
-    running_stats.add('loss', log_format='.3f', log_strategy='AVERAGE')
-    running_stats.add('time', log_format='time', log_name='Iter Time',
-                      log_strategy='CURRENT')
-    running_stats.log_order = ['time', 'loss']
-    running_stats.update({'loss': 0.46, 'time': 12})
-    running_stats.update({'time': 14.5, 'loss': 0.33})
-    running_stats.summarize()
-    print(running_stats)
+        running_stats = RunningStats()
+        running_stats.add('loss', log_format='.3f', log_strategy='AVERAGE')
+        running_stats.add('time', log_format='time', log_name='Iter Time',
+                          log_strategy='CURRENT')
+        running_stats.log_order = ['time', 'loss']
+        running_stats.update({'loss': 0.46, 'time': 12})
+        running_stats.update({'time': 14.5, 'loss': 0.33})
+        running_stats.summarize()
+        print(running_stats)
     """
 
     def __init__(self, log_delimiter=', '):

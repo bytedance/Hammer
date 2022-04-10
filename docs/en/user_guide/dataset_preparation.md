@@ -80,7 +80,7 @@ python prepare_dataset.py /raw_data/mnist mnist.zip --dataset mnist --portion tr
 
 ### CIFAR-10 and CIFAR-100
 
-[CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) consists of 60,000 images over 10 categories. Among them, there are 50,000 images for `train` portion and 10,000 for `test` portion. [CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html) consists of 60,000 images over 10 categories. Among them, there are 50,000 images for `train` portion and 10,000 for `test` portion. Please use the following commands to prepare the CIFAR-10 and CIFAR-100 dataset.
+[CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) consists of 60,000 images over 10 categories. Among them, there are 50,000 images for `train` portion and 10,000 for `test` portion. [CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html) consists of 60,000 images over 100 categories. Among them, there are 50,000 images for `train` portion and 10,000 for `test` portion. Please use the following commands to prepare the CIFAR-10 and CIFAR-100 dataset.
 
 ```shell
 # prepare CIFAR-10
@@ -147,7 +147,7 @@ In summary, the statistical information of LSUN dataset is
 
 **NOTE: Each dataset have `train`, `val`, and `test` portion. Currently, only Scenes are supported.**
 
-To prepare a dataset for bedroom training set, please use command
+To prepare a dataset for `bedroom` training set, please use command
 
 ```shell
 python prepare_dataset.py /raw_data/lsun lsun_bedroom_train.zip --dataset lsun --portion bedroom_train

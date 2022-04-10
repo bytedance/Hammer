@@ -19,13 +19,13 @@ class GridVisualizer(object):
     by one. Notably, this class also supports adding spaces between images,
     adding borders around images, and using white/black background.
 
-    Example:
+    Example::
 
-    grid = GridVisualizer(num_rows, num_cols)
-    for i in range(num_rows):
-        for j in range(num_cols):
-            grid.add(i, j, image)
-    grid.save('visualize.jpg')
+        grid = GridVisualizer(num_rows, num_cols)
+        for i in range(num_rows):
+            for j in range(num_cols):
+                grid.add(i, j, image)
+        grid.save('visualize.jpg')
     """
 
     def __init__(self,

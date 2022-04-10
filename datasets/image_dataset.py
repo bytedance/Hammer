@@ -18,15 +18,15 @@ class ImageDataset(BaseDataset):
     """Defines the image dataset class.
 
     NOTE: Each image can be grouped with a simple label, like 0-9 for CIFAR10,
-    or 0-999 for ImageNet. The returned item format is
+    or 0-999 for ImageNet. The returned item format looks like::
 
-    {
-        'index': int,
-        'raw_image': np.ndarray,
-        'image': np.ndarray,
-        'raw_label': int,  # optional
-        'label': np.ndarray  # optional
-    }
+        {
+            'index': int,
+            'raw_image': np.ndarray,
+            'image': np.ndarray,
+            'raw_label': int,  # optional
+            'label': np.ndarray  # optional
+        }
 
     Available transformation kwargs:
 

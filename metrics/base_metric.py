@@ -54,23 +54,21 @@ class BaseMetric(object):
     (8) sync(): Synchronize all replicas to make sure they are running into the
         same point.
 
-    For example, the helper function can be used like:
+    For example, the helper function can be used like::
 
-    ```
-    results = []
-    for _ in range(len(val_data_loader)):
-        batch_data = next(val_data_loader).cuda().detach()
-        with torch.no_grad():
-            batch_results = run_model(batch_data)
-            # Padding can be skipped if all replicas are ensured to have same
-            # number of samples.
-            padded_results = self.pad_tensor(batch_results, self.batch_size)
-            gathered_results = self.gather_batch_results(padded_results)
-            self.append_batch_results(gathered_results, results)
-    all_results = self.gather_all_results(results)
-    if self.is_chief:
-        compute_metric(all_results[:len(val_data_loader.dataset)])
-    ```
+        results = []
+        for _ in range(len(val_data_loader)):
+            batch_data = next(val_data_loader).cuda().detach()
+            with torch.no_grad():
+                batch_results = run_model(batch_data)
+                # Padding can be skipped if all replicas are ensured to have
+                # same number of samples.
+                padded_results = self.pad_tensor(batch_results, self.batch_size)
+                gathered_results = self.gather_batch_results(padded_results)
+                self.append_batch_results(gathered_results, results)
+        all_results = self.gather_all_results(results)
+        if self.is_chief:
+            compute_metric(all_results[:len(val_data_loader.dataset)])
     """
 
     def __init__(self,

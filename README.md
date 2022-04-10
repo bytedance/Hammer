@@ -87,11 +87,11 @@ with open(file_name, 'r') as f:
 
 ## Convert Pre-trained Models
 
-See [Model Conversion](./docs/model_conversion.md) for details.
+See [Model Conversion](./docs/en/user_guide/model_conversion.md) for details.
 
 ## Prepare Datasets
 
-See [Dataset Preparation](./docs/dataset_preparation.md) for details.
+See [Dataset Preparation](./docs/en/user_guide/dataset_preparation.md) for details.
 
 ## Develop
 

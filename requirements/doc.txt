@@ -1,0 +1,7 @@
+sphinx  # Build documentations.
+sphinx-multiversion  # Support building multi-version documentations.
+sphinx-copybutton  # Support copying command by one click
+sphinxcontrib-mermaid  # Support embedding Mermaid graphs
+furo  # Documentation theme.
+myst-parser  # Support parsing Markdown for Sphinx.
+autodocsumm  # Make autosummary to work with autodoc.

@@ -47,5 +47,9 @@ profile/
 *.html
 events.*
 
+# Ignore generated docs.
+/docs/en/_build
+/docs/zh-hans/_build
+
 # Files that should not be ignored.
 !/requirements/*

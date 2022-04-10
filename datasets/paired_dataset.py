@@ -17,15 +17,15 @@ __all__ = ['PairedDataset']
 class PairedDataset(BaseDataset):
     """Defines the paired dataset class.
 
-    The returned item format is
+    The returned item format looks like::
 
-    {
-        'index': int,
-        'raw_image_A': np.ndarray,
-        'raw_image_B': np.ndarray,
-        'image_A': np.ndarray,
-        'image_B': np.ndarray
-    }
+        {
+            'index': int,
+            'raw_image_A': np.ndarray,
+            'raw_image_B': np.ndarray,
+            'image_A': np.ndarray,
+            'image_B': np.ndarray
+        }
 
     Available transformation kwargs:
 
@@ -65,8 +65,10 @@ class PairedDataset(BaseDataset):
         - hflip_prob (default: 0.0)
         - vflip_prob (default: 0.0)
     - Random HSV settings:
-        # Parameters are lower and upper bounds for H, S, V jittering range.
-        # Setting as (0, 0, 1, 1, 1, 1) disables HSV jittering.
+        NOTE:
+            Parameters are lower and upper bounds for H, S, V jittering range.
+            Setting as (0, 0, 1, 1, 1, 1) disables HSV jittering.
+
         - hsv_param (default: (0, 0, 1, 1, 1, 1))
         - hsv_param_B (default: (0, 0, 1, 1, 1, 1))
         - hsv_aug_B: Whether image B requires HSV augmentation. (default: False)

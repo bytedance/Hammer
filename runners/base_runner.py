@@ -1001,6 +1001,7 @@ class BaseRunner(object):
              augment=True,
              running_stats=False):
         """Saves the current running status.
+
         Args:
             filepath: File path to save the checkpoint.
             running_metadata: Whether to save the running metadata, such as

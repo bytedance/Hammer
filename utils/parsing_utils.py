@@ -192,15 +192,15 @@ class DictAction(argparse.Action):
 
     parser.add_argument('--options', nargs='+', action=DictAction)
 
-    , you can use following arguments in the command line:
+    , you can use following arguments in the command line::
 
-    --options \
-        a=1 \
-        b=1.5
-        c=true \
-        d=null \
-        e=[1,2,3,4,5] \
-        f='{"x":1,"y":2,"z":3}' \
+        --options \
+            a=1 \
+            b=1.5
+            c=true \
+            d=null \
+            e=[1,2,3,4,5] \
+            f='{"x":1,"y":2,"z":3}'
 
     NOTE: No space is allowed in each argument. Also, the dictionary-type
     argument should be quoted with single quotation marks `'`.
